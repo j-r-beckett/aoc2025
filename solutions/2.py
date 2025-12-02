@@ -5,38 +5,28 @@ def parse(raw):
     return [tuple(int(x) for x in r.split("-")) for r in raw.split(",")]
 
 
-def is_invalid_p1(id):
-    return bool(re.search(r"^(.+)\1$", id))
+def count_invalid(ranges, is_invalid):
+    return sum(
+        n for start, end in ranges for n in range(start, end + 1) if is_invalid(n)
+    )
 
 
-def is_invalid_p2(id):
-    return bool(re.search(r"^(.+)\1+$", id))
+def part1(ranges):
+    def is_invalid(id):
+        return bool(re.search(r"^(.+)\1$", str(id)))
+
+    return count_invalid(ranges, is_invalid)
 
 
-def part1(parsed):
-    count = 0
-    for start, end in parsed:
-        for i in range(start, end + 1):
-            if is_invalid_p1(str(i)):
-                count += i
-    return count
+def part2(ranges):
+    def is_invalid(id):
+        return bool(re.search(r"^(.+)\1+$", str(id)))
 
-
-def part2(parsed):
-    count = 0
-    for start, end in parsed:
-        for i in range(start, end + 1):
-            if is_invalid_p2(str(i)):
-                count += i
-    return count
+    return count_invalid(ranges, is_invalid)
 
 
 if __name__ == "__main__":
     day = 2
-    with open(f"inputs/{day}.example.txt") as f:
-        raw = f.read().strip()
-        print(f"Example part 1: {part1(parse(raw))}")
-        print(f"Example part 2: {part2(parse(raw))}")
     with open(f"inputs/{day}.txt") as f:
         raw = f.read().strip()
         print(f"Part 1: {part1(parse(raw))}")
