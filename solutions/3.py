@@ -9,13 +9,15 @@ def max_total_joltage(banks, batteries):
         assert len(bank) > 0 and n > 0
         if (bank, n) not in cache:
             if len(bank) == n:
-                return int("".join(bank))
-            if n == 1:
-                return max([int(j) for j in bank])
-            cache[(bank, n)] = max(
-                int(bank[0] + str(max_joltage(bank[1:], n - 1))),
-                max_joltage(bank[1:], n),
-            )
+                v = int("".join(bank))
+            elif n == 1:
+                v = max([int(j) for j in bank])
+            else:
+                v = max(
+                    int(bank[0] + str(max_joltage(bank[1:], n - 1))),
+                    max_joltage(bank[1:], n),
+                )
+            cache[(bank, n)] = v
         return cache[(bank, n)]
 
     return sum(max_joltage(bank, batteries) for bank in banks)
