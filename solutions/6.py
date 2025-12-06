@@ -1,5 +1,5 @@
 def parse(raw):
-    return raw
+    return raw.split("\n")
 
 
 def solve_problems(data, ops):
@@ -17,9 +17,8 @@ def solve_problems(data, ops):
     return total
 
 
-def part1(parsed):
+def part1(lines):
     problems = []
-    lines = raw.split("\n")
     for line in lines[:-1]:
         i = 0
         for n in line.split(" "):
@@ -32,8 +31,8 @@ def part1(parsed):
     return solve_problems(problems, ops)
 
 
-def part2(parsed):
-    lines = [list(line) for line in parsed.split("\n")]
+def part2(lines):
+    lines = [list(line) for line in lines]
     data_lines = lines[:-1]
     op_line = lines[-1]
     problems = []
