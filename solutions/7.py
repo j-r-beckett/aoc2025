@@ -3,9 +3,7 @@ def parse(raw):
 
 
 def part1(diagram):
-    for c in range(len(diagram[0])):
-        if diagram[0][c] == "S":
-            diagram[0][c] = "|"
+    diagram[0][diagram[0].index("S")] = "|"
     splits = 0
     for row in range(len(diagram) - 1):
         for col in range(len(diagram[0])):
@@ -34,9 +32,9 @@ def part2(diagram):
                     result += timelines(row + 1, col - 1)
                 if col < len(diagram[0]) - 1 and diagram[row + 1][col + 1] != "^":
                     result += timelines(row + 1, col + 1)
+                cache[(row, col)] = result
             else:
-                result = timelines(row + 1, col)
-            cache[(row, col)] = result
+                cache[(row, col)] = timelines(row + 1, col)
         return cache[(row, col)]
 
     return timelines(0, diagram[0].index("S"))
