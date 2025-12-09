@@ -9,7 +9,7 @@ def dist(ax, ay, az, bx, by, bz):
     return math.sqrt((ax - bx) ** 2 + (ay - by) ** 2 + (az - bz) ** 2)
 
 
-def part1(parsed):
+def part1(parsed, n):
     all_boxes = parsed
     circuits = [set([box]) for box in all_boxes]
 
@@ -20,7 +20,6 @@ def part1(parsed):
     ]
     distances.sort(reverse=True)
 
-    n = 10
     for i in range(n):
         _, a, b = distances.pop()
         for circuit in circuits:
@@ -72,9 +71,9 @@ if __name__ == "__main__":
     day = 8
     with open(f"inputs/{day}.example.txt") as f:
         raw = f.read().strip()
-        # print(f"Example part 1: {part1(parse(raw))}")
-        # print(f"Example part 2: {part2(parse(raw))}")
+        print(f"Example part 1: {part1(parse(raw), 10)}")
+        print(f"Example part 2: {part2(parse(raw))}")
     with open(f"inputs/{day}.txt") as f:
         raw = f.read().strip()
-        print(f"Part 1: {part1(parse(raw))}")
+        print(f"Part 1: {part1(parse(raw), 1000)}")
         print(f"Part 2: {part2(parse(raw))}")
